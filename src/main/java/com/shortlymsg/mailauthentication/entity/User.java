@@ -1,4 +1,4 @@
-package com.shortlymsg.mailauthentication.model;
+package com.shortlymsg.mailauthentication.entity;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -6,13 +6,14 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
-@Entity
-@Data
+
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+@Entity
 public class User {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -20,5 +21,7 @@ public class User {
     private String id;
 
     private String mail;
+
+    private LocalDateTime createdDate;
 
 }
