@@ -2,7 +2,6 @@ package com.shortlymsg.mailauthentication.controller;
 
 import com.shortlymsg.mailauthentication.dto.UserDto;
 import com.shortlymsg.mailauthentication.entity.User;
-import com.shortlymsg.mailauthentication.repository.UserRepository;
 import com.shortlymsg.mailauthentication.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,35 +21,38 @@ public class UserController {
 
     }
 
-    @PostMapping("/save")
-    public User saveUser(@RequestBody User user) {
+    @PostMapping
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
         log.info("Inside saveUser method of UserController");
-        return userService.saveUser(user);
-    }
-
-    @PutMapping("/update/{id}")
-    public User update(@PathVariable String id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+        return ResponseEntity.ok(userService.saveUser(user));
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
-    @GetMapping("/ez")
     public ResponseEntity<List<UserDto>> getAll(){
+        log.info("Inside getUserById method of UserController");
         return ResponseEntity.ok(userService.getAll());
     }
 
+/*    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }*/
+
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable("id") String id) {
+    public ResponseEntity<User> getUserById(@PathVariable("id") String id) {
         log.info("Inside getUserById method of UserController");
-        return userService.getUserById(id);
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
+        log.info("Inside update method of UserController");
+        return ResponseEntity.ok(userService.updateUser(id, user));
     }
 
     @DeleteMapping("/{id}")
-    public User deleteUser(@PathVariable String id) {
-        return userService.deleteUser(id);
+    public void deleteUser(@PathVariable String id) {
+        log.info("Inside deleteUser method of UserController");
+        userService.deleteUser(id);
     }
 }

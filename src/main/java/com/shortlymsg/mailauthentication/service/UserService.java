@@ -7,6 +7,7 @@ import com.shortlymsg.mailauthentication.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,11 +25,8 @@ public class UserService {
 
     public User saveUser(User user) {
         log.info("Inside saveUser method of UserService");
+        user.setCreatedDate(LocalDateTime.now());
         return userRepository.save(user);
-    }
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
     }
 
     public List<UserDto> getAll() {
@@ -37,6 +35,10 @@ public class UserService {
                 .map(converter::convertToUserDto)
                 .collect(Collectors.toList());
     }
+
+/*    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }*/
 
     public User getUserById(String id) {
         return userRepository.findById(id).orElse(null);
@@ -48,12 +50,9 @@ public class UserService {
         return user;
     }
 
-    public User updateUser(String id, User user) {
-        User oldUser = userRepository.findById(id).orElse(null);
-        oldUser.setMail(user.getMail());
-        return userRepository.save(oldUser);
+    public User updateUser(String id, User user) {//************************************************************
+        user.setCreatedDate(LocalDateTime.now());
+        return userRepository.save(user);
     }
-
-
 
 }
