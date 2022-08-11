@@ -15,7 +15,8 @@ public class UserDtoConverter {
         return UserDto.builder()
                 .id(user.getId())
                 .mail(user.getMail())
-                .createdDate(user.getCreatedDate())
+                .passsword(user.getPassword())
+                .creationDate(user.getCreationDate())
                 .build();
     }
 

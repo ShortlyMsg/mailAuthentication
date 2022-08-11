@@ -25,7 +25,7 @@ public class UserService {
 
     public User saveUser(User user) {
         log.info("Inside saveUser method of UserService");
-        user.setCreatedDate(LocalDateTime.now());
+        user.setCreationDate(LocalDateTime.now());
         return userRepository.save(user);
     }
 
@@ -51,7 +51,7 @@ public class UserService {
     }
 
     public User updateUser(String id, User user) {//************************************************************
-        user.setCreatedDate(LocalDateTime.now());
+        user.setCreationDate(LocalDateTime.now());
         return userRepository.save(user);
     }
 
