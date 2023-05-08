@@ -30,6 +30,7 @@ public class UserService {
     }
 
     public List<UserDto> getAll() {
+        log.info("Inside getAll method of UserService");
         return userRepository.findAll()
                 .stream()
                 .map(converter::convertToUserDto)
@@ -41,18 +42,23 @@ public class UserService {
     }*/
 
     public User getUserById(String id) {
+        log.info("Inside getUserById method of UserService");
         return userRepository.findById(id).orElse(null);
     }
 
     public User deleteUser(String id) {
+        log.info("Inside deleteUser method of UserService");
         User user = userRepository.findById(id).orElse(null);
         userRepository.deleteById(id);
         return user;
     }
 
-    public User updateUser(String id, User user) {//************************************************************
-        user.setCreationDate(LocalDateTime.now());
-        return userRepository.save(user);
+    public UserDto updateUserById(User user, String userId) {
+        log.info("Inside updateUserById method of UserService");
+        User updateUser = userRepository.findById(userId).orElse(null);
+        updateUser.setMail(user.getMail());
+        updateUser.setPassword(user.getPassword());
+        return converter.convertToUserDto(userRepository.save(updateUser));
     }
 
 }

@@ -1,11 +1,10 @@
 package com.shortlymsg.mailauthentication.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
-
 
 @Builder
 @AllArgsConstructor
@@ -28,5 +27,4 @@ public class User {
 
     @Column(name="creation_date")
     private LocalDateTime creationDate;
-
 }

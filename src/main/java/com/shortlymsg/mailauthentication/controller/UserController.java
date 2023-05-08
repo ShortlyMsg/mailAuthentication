@@ -45,9 +45,10 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
-        log.info("Inside update method of UserController");
-        return ResponseEntity.ok(userService.updateUser(id, user));
+    public ResponseEntity<UserDto> updateUserById(@RequestBody User user,
+                                                  @PathVariable("id") String userId){
+        log.info("Inside updateUserById method of UserController");
+        return ResponseEntity.ok(userService.updateUserById(user, userId));
     }
 
     @DeleteMapping("/{id}")
