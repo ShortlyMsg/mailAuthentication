@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAll(){
-        log.info("Inside getUserById method of UserController");
+        log.info("Inside getAll method of UserController");
         return ResponseEntity.ok(userService.getAll());
     }
 

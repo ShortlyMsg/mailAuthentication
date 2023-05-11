@@ -35,7 +35,7 @@ public class SecurityConfig {
         return http.httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                //.requestMatchers("/login").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html","/error").permitAll()
                 //.requestMatchers("/users").authenticated()
                 .requestMatchers(HttpMethod.POST,"/users/**").hasRole("USER")
                 .requestMatchers("/users/**").hasRole("ADMIN")
