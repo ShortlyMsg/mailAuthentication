@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class UserDto {
     private String id;
     private String mail;
-    private String passsword;
+    private String password;
     private LocalDateTime creationDate;
 
 }
