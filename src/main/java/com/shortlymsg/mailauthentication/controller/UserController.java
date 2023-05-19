@@ -1,7 +1,7 @@
 package com.shortlymsg.mailauthentication.controller;
 
 import com.shortlymsg.mailauthentication.dto.UserDto;
-import com.shortlymsg.mailauthentication.entity.User2;
+import com.shortlymsg.mailauthentication.entity.User;
 import com.shortlymsg.mailauthentication.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User2> saveUser(@RequestBody User2 user) {
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
         log.info("Inside saveUser method of UserController");
         return ResponseEntity.ok(userService.saveUser(user));
     }
@@ -39,13 +39,13 @@ public class UserController {
     }*/
 
     @GetMapping("/{id}")
-    public ResponseEntity<User2> getUserById(@PathVariable("id") String id) {
+    public ResponseEntity<User> getUserById(@PathVariable("id") String id) {
         log.info("Inside getUserById method of UserController");
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUserById(@RequestBody User2 user,
+    public ResponseEntity<UserDto> updateUserById(@RequestBody User user,
                                                   @PathVariable("id") String userId){
         log.info("Inside updateUserById method of UserController");
         return ResponseEntity.ok(userService.updateUserById(user, userId));

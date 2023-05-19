@@ -14,13 +14,13 @@ data class User(
         val id: String? = "",
 
         @Column(name = "mail")
-        val mail: String,
+        var mail: String,
 
         @Column(name = "password")
-        val password: String,
+        var password: String,
 
         @Column(name = "creation_date")
-        val creationDate: LocalDateTime,
+        var creationDate: LocalDateTime,
 ){
     constructor() : this(null, "", "", LocalDateTime.now())
 }

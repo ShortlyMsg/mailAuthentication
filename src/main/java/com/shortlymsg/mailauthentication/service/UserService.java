@@ -2,7 +2,7 @@ package com.shortlymsg.mailauthentication.service;
 
 import com.shortlymsg.mailauthentication.dto.UserDto;
 import com.shortlymsg.mailauthentication.dto.converter.UserDtoConverter;
-import com.shortlymsg.mailauthentication.entity.User2;
+import com.shortlymsg.mailauthentication.entity.User;
 import com.shortlymsg.mailauthentication.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class UserService {
     }
 
 
-    public User2 saveUser(User2 user) {
+    public User saveUser(User user) {
         log.info("Inside saveUser method of UserService");
         user.setCreationDate(LocalDateTime.now());
         return userRepository.save(user);
@@ -41,21 +41,21 @@ public class UserService {
         return userRepository.findAll();
     }*/
 
-    public User2 getUserById(String id) {
+    public User getUserById(String id) {
         log.info("Inside getUserById method of UserService");
         return userRepository.findById(id).orElse(null);
     }
 
-    public User2 deleteUser(String id) {
+    public User deleteUser(String id) {
         log.info("Inside deleteUser method of UserService");
-        User2 user = userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElse(null);
         userRepository.deleteById(id);
         return user;
     }
 
-    public UserDto updateUserById(User2 user, String userId) {
+    public UserDto updateUserById(User user, String userId) {
         log.info("Inside updateUserById method of UserService");
-        User2 updateUser = userRepository.findById(userId).orElse(null);
+        User updateUser = userRepository.findById(userId).orElse(null);
         updateUser.setMail(user.getMail());
         updateUser.setPassword(user.getPassword());
         return converter.convertToUserDto(userRepository.save(updateUser));
