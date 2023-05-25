@@ -3,6 +3,7 @@ package com.shortlymsg.mailauthentication.service;
 import com.shortlymsg.mailauthentication.dto.UserDto;
 import com.shortlymsg.mailauthentication.dto.converter.UserDtoConverter;
 import com.shortlymsg.mailauthentication.entity.User;
+import com.shortlymsg.mailauthentication.exception.UserNotFoundException;
 import com.shortlymsg.mailauthentication.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -43,19 +44,25 @@ public class UserService {
 
     public User getUserById(String id) {
         log.info("Inside getUserById method of UserService");
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id)
+                .orElseThrow(
+                () -> new UserNotFoundException("User could not find by id: " + id));
     }
 
     public User deleteUser(String id) {
         log.info("Inside deleteUser method of UserService");
-        User user = userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(id)
+                .orElseThrow(
+                        () -> new UserNotFoundException("User could not find by id: " + id));
         userRepository.deleteById(id);
         return user;
     }
 
-    public UserDto updateUserById(User user, String userId) {
+    public UserDto updateUserById(User user, String id) {
         log.info("Inside updateUserById method of UserService");
-        User updateUser = userRepository.findById(userId).orElse(null);
+        User updateUser = userRepository.findById(id)
+                .orElseThrow(
+                        () -> new UserNotFoundException("User could not find by id: " + id));
         updateUser.setMail(user.getMail());
         updateUser.setPassword(user.getPassword());
         return converter.convertToUserDto(userRepository.save(updateUser));
