@@ -1,30 +1,43 @@
 package com.shortlymsg.mailauthentication.controller;
 
+import com.shortlymsg.mailauthentication.entity.User;
 import com.shortlymsg.mailauthentication.service.EmailSenderService;
 import com.shortlymsg.mailauthentication.service.OneTimePasswordService;
+import com.shortlymsg.mailauthentication.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Slf4j
 @RequestMapping("/api/v1/email")
 public class EmailSenderController {
 
     private final EmailSenderService senderService;
     private final OneTimePasswordService passwordService;
+    private final UserService userService;
 
 
-    public EmailSenderController(EmailSenderService senderService, OneTimePasswordService passwordService) {
+    public EmailSenderController(EmailSenderService senderService, OneTimePasswordService passwordService, UserService userService) {
         this.senderService = senderService;
         this.passwordService = passwordService;
+        this.userService = userService;
     }
 
-    @PostMapping
-    public void sendMail(){
-        senderService.sendEmail("42msg42@gmail.com"
-                ,"Hey !!"
-                ,"One time password: "
+    @PostMapping("/saveUser")
+    public ResponseEntity<User> saveUserAndSendMail(@RequestBody User user){
+        log.info("Inside saveUserAndSendMail method of EmailSenderController");
+        senderService.sendEmail(user.getMail()
+                ,"Hey "+user.getMail().substring(0,3)
+                ,"Your account has been created at \n{"
+                        +user.getCreationDate()
+                        +"}. \nPlease use the following one time password (OTP) for authentication:  "
                         +passwordService.generateOneTimePassword()
-                        +" you can use it for the register.");
+                        +"\nYou can use this OTP for the registration process.");
+        return ResponseEntity.ok(userService.saveUser(user));
     }
+
 }
