@@ -1,6 +1,5 @@
 package com.shortlymsg.mailauthentication.service;
 
-import com.shortlymsg.mailauthentication.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
