@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html","/error").permitAll()
                 //.requestMatchers("/users").authenticated()
                 .requestMatchers(HttpMethod.POST,"/users/**").hasRole("USER")
-                .requestMatchers("/users/**").hasRole("ADMIN")
+                .requestMatchers("/users/**", "/api/v1/email/**").hasRole("ADMIN")
                 .and()
                 .csrf().disable()
                 .formLogin().disable()

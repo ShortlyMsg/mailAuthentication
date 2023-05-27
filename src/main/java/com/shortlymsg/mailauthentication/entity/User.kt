@@ -1,6 +1,7 @@
 package com.shortlymsg.mailauthentication.entity
 
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotBlank
 import org.hibernate.annotations.GenericGenerator
 import java.time.LocalDateTime
 
@@ -16,6 +17,7 @@ data class User(
         @Column(name = "mail")
         var mail: String,
 
+        @NotBlank(message = "{password.new.not-blank}")
         @Column(name = "password")
         var password: String,
 
