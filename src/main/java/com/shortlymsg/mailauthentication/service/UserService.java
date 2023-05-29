@@ -24,10 +24,10 @@ public class UserService {
     }
 
 
-    public User saveUser(User user) {
+    public UserDto saveUser(User user) {
         log.info("Inside saveUser method of UserService");
         user.setCreationDate(LocalDateTime.now());
-        return userRepository.save(user);
+        return converter.convertToUserDto(userRepository.save(user));
     }
 
     public List<UserDto> getAll() {
@@ -64,6 +64,7 @@ public class UserService {
                 .orElseThrow(
                         () -> new UserNotFoundException("User could not find by id: " + id));
         updateUser.setMail(user.getMail());
+        updateUser.setUserName(user.getUserName());
         updateUser.setPassword(user.getPassword());
         return converter.convertToUserDto(userRepository.save(updateUser));
     }

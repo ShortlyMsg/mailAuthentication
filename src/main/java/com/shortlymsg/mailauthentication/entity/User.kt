@@ -2,6 +2,7 @@ package com.shortlymsg.mailauthentication.entity
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import org.hibernate.annotations.GenericGenerator
 import java.time.LocalDateTime
@@ -16,18 +17,16 @@ data class User(
         val id: String? = "",
 
         @Column(unique = true, name = "mail")
-        var mail: String? = null,
+        var mail: String,
 
         @Column(unique = true, name = "user_name", length = 25)
-        @Pattern(regexp = "^[a-z0-9._]+$", message = "Username can only contain lowercase letters, numbers, '.', and '_'")
-        var userName: String? = null,
+        var userName: String,
 
-        @NotBlank(message = "{password.new.not-blank}")
         @Column(name = "password")
         var password: String,
 
         @Column(name = "one_time_password")
-        var oneTimePassword: String? = null,
+        var oneTimePassword: String,
 
         @Column(name = "creation_date")
         var creationDate: LocalDateTime,

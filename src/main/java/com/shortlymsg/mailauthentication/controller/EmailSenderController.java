@@ -1,5 +1,6 @@
 package com.shortlymsg.mailauthentication.controller;
 
+import com.shortlymsg.mailauthentication.dto.UserDto;
 import com.shortlymsg.mailauthentication.entity.User;
 import com.shortlymsg.mailauthentication.service.EmailSenderService;
 import com.shortlymsg.mailauthentication.service.OneTimePasswordService;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/v1/email")
+@RequestMapping("/v1/email")
 public class EmailSenderController {
 
     private final EmailSenderService senderService;
@@ -27,11 +28,11 @@ public class EmailSenderController {
         this.userService = userService;
     }
 
-    @PostMapping("/saveUser")
-    public ResponseEntity<User> saveUserAndSendMail(@RequestBody User user){
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> saveUserAndSendMail(@RequestBody User user){
         log.info("Inside saveUserAndSendMail method of EmailSenderController");
         senderService.sendEmail(user.getMail()
-                ,"Hey "+user.getMail().substring(0,3)+"***"
+                ,"Hey "+user.getUserName()
                 ,"Your account has been created at \n{"
                         +user.getCreationDate()
                         +"}. \nPlease use the following one time password (OTP) for authentication:  "

@@ -1,5 +1,6 @@
 package com.shortlymsg.mailauthentication.service;
 
+import com.shortlymsg.mailauthentication.dto.UserDto;
 import com.shortlymsg.mailauthentication.dto.converter.UserDtoConverter;
 import com.shortlymsg.mailauthentication.entity.User;
 import com.shortlymsg.mailauthentication.repository.UserRepository;
@@ -29,7 +30,7 @@ class UserServiceTest {
         User user = new User();
         when(userRepository.save(user)).thenReturn(user);
 
-        User result = userService.saveUser(user);
+        UserDto result = userService.saveUser(user);
 
         assertEquals(user, result);
         verify(userRepository, times(1)).save(user);

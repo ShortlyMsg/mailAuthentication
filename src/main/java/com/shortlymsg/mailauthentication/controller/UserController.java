@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/v1/users")
 @Slf4j
 public class UserController {
 
@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
+    public ResponseEntity<UserDto> saveUser(@RequestBody User user) {
         log.info("Inside saveUser method of UserController");
         return ResponseEntity.ok(userService.saveUser(user));
     }
