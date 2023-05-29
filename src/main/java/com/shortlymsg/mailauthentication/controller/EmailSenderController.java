@@ -31,7 +31,7 @@ public class EmailSenderController {
     public ResponseEntity<User> saveUserAndSendMail(@RequestBody User user){
         log.info("Inside saveUserAndSendMail method of EmailSenderController");
         senderService.sendEmail(user.getMail()
-                ,"Hey "+user.getMail().substring(0,3)
+                ,"Hey "+user.getMail().substring(0,3)+"***"
                 ,"Your account has been created at \n{"
                         +user.getCreationDate()
                         +"}. \nPlease use the following one time password (OTP) for authentication:  "
