@@ -5,6 +5,7 @@ import com.shortlymsg.mailauthentication.entity.User;
 import com.shortlymsg.mailauthentication.service.EmailSenderService;
 import com.shortlymsg.mailauthentication.service.OneTimePasswordService;
 import com.shortlymsg.mailauthentication.service.UserService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,12 +32,14 @@ public class EmailSenderController {
     @PostMapping("/register")
     public ResponseEntity<UserDto> saveUserAndSendMail(@RequestBody User user){
         log.info("Inside saveUserAndSendMail method of EmailSenderController");
+        String token = passwordService.generateOneTimePassword();
+        user.setOneTimePassword(token);
         senderService.sendEmail(user.getMail()
                 ,"Hey "+user.getUserName()
                 ,"Your account has been created at \n{"
                         +user.getCreationDate()
                         +"}. \nPlease use the following one time password (OTP) for authentication:  "
-                        +passwordService.generateOneTimePassword()
+                        +token
                         +"\nYou can use this OTP for the registration process.");
         return ResponseEntity.ok(userService.saveUser(user));
     }
