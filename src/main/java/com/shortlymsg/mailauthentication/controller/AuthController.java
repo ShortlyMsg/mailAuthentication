@@ -1,7 +1,6 @@
 package com.shortlymsg.mailauthentication.controller;
 
 import com.shortlymsg.mailauthentication.dto.AuthDto;
-import com.shortlymsg.mailauthentication.entity.User;
 import com.shortlymsg.mailauthentication.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,9 +23,6 @@ public class AuthController {
     @PostMapping
     public ResponseEntity<AuthDto> authenticate(AuthDto authDto){
         log.info("Inside authenticate method of AuthController");
-        User user = authService.findByMail(authDto.getMail());
-        String token = authDto.getToken();
-        return user == null || !user.getOneTimePassword().equals(token)
-                ? ResponseEntity.badRequest().build() : ResponseEntity.ok(authDto);
+        return ResponseEntity.ok(authService.authenticate(authDto));
     }
 }
