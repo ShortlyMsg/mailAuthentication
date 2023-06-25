@@ -5,7 +5,6 @@ import com.shortlymsg.mailauthentication.entity.User;
 import com.shortlymsg.mailauthentication.service.EmailSenderService;
 import com.shortlymsg.mailauthentication.service.OneTimePasswordService;
 import com.shortlymsg.mailauthentication.service.UserService;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,9 +34,9 @@ public class EmailSenderController {
         String token = passwordService.generateOneTimePassword();
         user.setOneTimePassword(token);
         senderService.sendEmail(user.getMail()
-                ,"Hey "+user.getUserName()
+                ,"Hey "+ user.getUserName()
                 ,"Your account has been created at \n{"
-                        +user.getCreationDate()
+                        + user.getCreationDate()
                         +"}. \nPlease use the following one time password (OTP) for authentication:  "
                         +token
                         +"\nYou can use this OTP for the registration process.");

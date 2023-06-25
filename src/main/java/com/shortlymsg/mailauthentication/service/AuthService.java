@@ -3,7 +3,6 @@ package com.shortlymsg.mailauthentication.service;
 import com.shortlymsg.mailauthentication.dto.AuthDto;
 import com.shortlymsg.mailauthentication.entity.User;
 import com.shortlymsg.mailauthentication.repository.UserRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
